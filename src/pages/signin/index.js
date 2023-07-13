@@ -34,7 +34,14 @@ export default function Signin() {
       const res = await postData(`/cms/auth/signin`, form);
       // res.data adalah cara akses data ke database , sedangkan penambahan .data untuk kedua kalinya adalah default dari axios sama seperti halnnya untuk mengakses pesan error pada axios defaultnya harus menggunakan .response
 
-      dispatch(userLogin(res.data.data.token, res.data.data.role));
+      dispatch(
+        userLogin(
+          res.data.data.token,
+          res.data.data.role,
+          res.data.data.refreshToken,
+          res.data.data.email
+        )
+      );
       setIsLoading(false);
       navigate("/");
     } catch (err) {

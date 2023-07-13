@@ -27,7 +27,7 @@ function EventsCreate() {
       {
         type: "",
         status: "",
-        stock: "",
+        statusTicketCategories: "",
         price: "",
       },
     ],
@@ -55,6 +55,56 @@ function EventsCreate() {
     const res = await postData("/cms/images", formData, true);
     return res;
   };
+
+  // const handleChange = async (e) => {
+  //   if (e.target.name === "avatar") {
+  //     if (
+  //       e?.target?.files[0]?.type === "image/jpg" ||
+  //       e?.target?.files[0]?.type === "image/png" ||
+  //       e?.target?.files[0]?.type === "image/jpeg"
+  //     ) {
+  //       var size = parseFloat(e.target.files[0].size / 3145728).toFixed(2);
+
+  //       if (size > 2) {
+  //         setAlert({
+  //           ...alert,
+  //           status: true,
+  //           type: "danger",
+  //           message: "Please select image size less than 3 MB",
+  //         });
+  //         setForm({
+  //           ...form,
+  //           file: "",
+  //           [e.target.name]: "",
+  //         });
+  //       } else {
+  //         const res = await uploadImage(e.target.files[0]);
+
+  //         setForm({
+  //           ...form,
+  //           file: res.data.data._id,
+  //           [e.target.name]: res.data.data.name,
+  //         });
+  //       }
+  //     } else {
+  //       setAlert({
+  //         ...alert,
+  //         status: true,
+  //         type: "danger",
+  //         message: "type image png | jpg | jpeg",
+  //       });
+  //       setForm({
+  //         ...form,
+  //         file: "",
+  //         [e.target.name]: "",
+  //       });
+  //     }
+  //   } else if (e.target.name === "category" || e.target.name === "talent") {
+  //     setForm({ ...form, [e.target.name]: e });
+  //   } else {
+  //     setForm({ ...form, [e.target.name]: e.target.value });
+  //   }
+  // };
 
   const handleChange = async (e) => {
     if (e.target.name === "avatar") {
@@ -100,8 +150,7 @@ function EventsCreate() {
         });
       }
     } else if (e.target.name === "category" || e.target.name === "talent") {
-      console.log("e.target.name");
-      console.log(e.target.name);
+      // console.log(e.target.name);
       setForm({ ...form, [e.target.name]: e });
     } else {
       setForm({ ...form, [e.target.name]: e.target.value });
@@ -112,23 +161,26 @@ function EventsCreate() {
     setIsLoading(true);
 
     const payload = {
-      date: form.date,
-      image: form.file,
       title: form.title,
-      price: form.price,
+      date: form.date,
       about: form.about,
-      venueName: form.venueName,
       tagline: form.tagline,
+      venueName: form.venueName,
       keyPoint: form.keyPoint,
-      category: form.category.value,
-      talent: form.talent.value,
       status: form.status,
       tickets: form.tickets,
+      image: form.file,
+      category: form.category.value,
+      price: form.price,
+      talent: form.talent.value,
     };
+
+    // console.log("payload");
+    // console.log(payload);
 
     const res = await postData("/cms/events", payload);
 
-    if (res.data.data) {
+    if (res?.data?.data) {
       dispatch(setNotif(true, "success", `berhasil tambah events ${res.data.data.title}`));
       navigate("/events");
       setIsLoading(false);
@@ -151,10 +203,19 @@ function EventsCreate() {
     setForm({ ...form, keyPoint: _temp });
   };
 
+  // Noted
   const handlePlusKeyPoint = () => {
+    /**
+     * copy dulu state keypointnya
+     * kita push data array
+     **/
     let _temp = [...form.keyPoint];
+    // console.log("_temp 1");
+    // console.log(_temp);
     _temp.push("");
 
+    // console.log("_temp 2");
+    // console.log(_temp);
     setForm({ ...form, keyPoint: _temp });
   };
 
@@ -174,13 +235,14 @@ function EventsCreate() {
     let _temp = [...form.tickets];
     _temp.push({
       type: "",
-      status: "",
+      statusTicketCategories: "",
       stock: "",
       price: "",
     });
 
     setForm({ ...form, tickets: _temp });
   };
+
   const handleMinusTicket = (index) => {
     let _temp = [...form.tickets];
     let removeIndex = _temp

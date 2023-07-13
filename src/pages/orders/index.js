@@ -5,18 +5,15 @@ import Table from "../../components/TableWithAction";
 import SearchInput from "../../components/SearchInput";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders, setPage, setDate } from "../../redux/orders/actions";
-import AlertMessage from "../../components/Alert";
+// import AlertMessage from "../../components/Alert";
 import { fetchListEvents } from "../../redux/lists/actions";
 import DateRange from "../../components/InputDate";
 import { formatDate } from "../../utils/formatDate";
 
 function OrderPage() {
   const dispatch = useDispatch();
-
-  const notif = useSelector((state) => state.notif);
-  const orders = useSelector((state) => state.orders);
-
   let [isShowed, setIsShowed] = React.useState(false);
+  const orders = useSelector((state) => state.orders);
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -29,13 +26,12 @@ function OrderPage() {
   const displayDate = `${orders.date?.startDate ? formatDate(orders.date?.startDate) : ""}${
     orders.date?.endDate ? " - " + formatDate(orders.date.endDate) : ""
   }`;
-  console.log(orders.data);
 
   return (
     <Container className="mt-3">
       <BreadCrumb textSecond={"Orders"} />
       <Row>
-        <Col className="cursor-pointer position-relative" onClick={() => setIsShowed(true)}>
+        <Col sm={6} className="cursor-pointer position-relative" onClick={() => setIsShowed(true)}>
           <SearchInput disabled query={displayDate} />
           {isShowed ? (
             <DateRange
@@ -47,11 +43,8 @@ function OrderPage() {
             ""
           )}
         </Col>
-        <Col></Col>
-        <Col></Col>
       </Row>
 
-      {notif.status && <AlertMessage type={notif.typeNotif} message={notif.message} />}
       <Table
         status={orders.status}
         thead={["Nama", "Email", "Judul", "Tanggal Event", "Tanggal Order", "Tempat"]}

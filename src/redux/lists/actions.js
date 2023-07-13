@@ -44,7 +44,7 @@ export const fetchListCategories = () => {
       let res = await debouncedFetchListsCategories("/cms/categories");
 
       let _temp = [];
-
+      // console.log(res.data.data);
       res.data.data.forEach((res) => {
         _temp.push({
           value: res._id,
@@ -96,7 +96,7 @@ export const fetchListTalents = () => {
         _temp.push({
           value: res._id,
           label: res.name,
-          target: { value: res._id, name: "talents" },
+          target: { value: res._id, name: "talent" },
         });
       });
 
@@ -144,7 +144,7 @@ export const fetchListEvents = () => {
       res.data.data.forEach((res) => {
         _temp.push({
           value: res._id,
-          label: res.title,
+          label: res.name,
           target: { value: res._id, name: "event" },
         });
       });

@@ -3,20 +3,19 @@ import { Container } from "react-bootstrap";
 import BreadCrumb from "../../components/Breadcrumb";
 import Alert from "../../components/Alert";
 import Form from "./form";
-import { getData, postData, putData } from "../../utils/fetch";
-import { useNavigate, useParams } from "react-router-dom";
+import { postData } from "../../utils/fetch";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotif } from "../../redux/notif/actions";
 import { fetchListCategories, fetchListTalents } from "../../redux/lists/actions";
-import moment from "moment";
 
 function EventsCreate() {
   const navigate = useNavigate();
-  const { eventId } = useParams();
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
   const [form, setForm] = useState({
     title: "",
+    price: "",
     date: "",
     file: "",
     avatar: "",
@@ -34,6 +33,7 @@ function EventsCreate() {
     ],
     category: "",
     talent: "",
+    stock: "",
   });
 
   const [alert, setAlert] = useState({
@@ -43,38 +43,6 @@ function EventsCreate() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const fetchOneCategories = async () => {
-    const res = await getData(`/cms/events/${eventId}`);
-
-    setForm({
-      ...form,
-      title: res.data.data.title,
-      date: moment(res.data.data.date).format("YYYY-MM-DDTHH:SS"),
-      file: res.data.data.image._id,
-      avatar: res.data.data.image.name,
-      about: res.data.data.about,
-      venueName: res.data.data.venueName,
-      tagline: res.data.data.tagline,
-      keyPoint: res.data.data.keyPoint,
-      category: {
-        label: res?.data?.data?.category?.name,
-        target: { name: "category", value: res?.data?.data?.category?._id },
-        value: res?.data?.data?.category?._id,
-      },
-      talent: {
-        label: res?.data?.data?.talent?.name,
-        target: { name: "talent", value: res?.data?.data?.talent?._id },
-        value: res?.data?.data?.talent?._id,
-      },
-      tickets: res.data.data.tickets,
-    });
-  };
-
-  useEffect(() => {
-    fetchOneCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     dispatch(fetchListTalents());
@@ -132,6 +100,8 @@ function EventsCreate() {
         });
       }
     } else if (e.target.name === "category" || e.target.name === "talent") {
+      // console.log("e.target.name");
+      // console.log(e.target.name);
       setForm({ ...form, [e.target.name]: e });
     } else {
       setForm({ ...form, [e.target.name]: e.target.value });
@@ -139,6 +109,7 @@ function EventsCreate() {
   };
 
   const handleSubmit = async () => {
+    console.log("hai");
     setIsLoading(true);
 
     const payload = {
@@ -155,11 +126,15 @@ function EventsCreate() {
       status: form.status,
       tickets: form.tickets,
     };
+    console.log("payload");
+    console.log(payload);
 
-    const res = await putData(`/cms/events/${eventId}`, payload);
+    const res = await postData("/cms/events", payload);
+    console.log("test");
+    console.log(payload);
+
     if (res.data.data) {
-      dispatch(setNotif(true, "success", `berhasil ubah events ${res.data.data.title}`));
-
+      dispatch(setNotif(true, "success", `berhasil tambah events ${res.data.data.title}`));
       navigate("/events");
       setIsLoading(false);
     } else {
@@ -233,7 +208,7 @@ function EventsCreate() {
 
   return (
     <Container>
-      <BreadCrumb textSecond={"Events"} urlSecond={"/events"} textThird="Edit" />
+      <BreadCrumb textSecound={"Events"} urlSecound={"/events"} textThird="Create" />
       {alert.status && <Alert type={alert.type} message={alert.message} />}
       <Form
         form={form}
@@ -247,7 +222,6 @@ function EventsCreate() {
         handlePlusTicket={handlePlusTicket}
         handleMinusTicket={handleMinusTicket}
         handleChangeTicket={handleChangeTicket}
-        edit
       />
     </Container>
   );

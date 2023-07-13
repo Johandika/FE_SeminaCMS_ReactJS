@@ -19,16 +19,12 @@ export default function EventsForm({
   handleMinusTicket,
   handleChangeTicket,
 }) {
-  // console.log("form.tickets");
-  // console.log(form.tickets);
-  // console.log("lists.categories");
-  // console.log(lists.categories);
   return (
     <Form className="mb-2">
       <Row>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan judul"}
+            placeholder={"Masukan judul"}
             label={"Judul"}
             name="title"
             value={form.title}
@@ -38,7 +34,7 @@ export default function EventsForm({
         </Col>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan tagline"}
+            placeholder={"Masukan tagline"}
             label={"Tagline"}
             name="tagline"
             value={form.tagline}
@@ -50,7 +46,7 @@ export default function EventsForm({
       <Row>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan tanggal acara"}
+            placeholder={"Masukan tanggal acara"}
             label={"Tanggal"}
             name="date"
             value={form.date}
@@ -61,7 +57,7 @@ export default function EventsForm({
         <Col>
           <SelectBox
             label={"Category"}
-            placeholder={"Masukkan kategori"}
+            placeholder={"Masukan kategori"}
             name="category"
             value={form.category}
             options={lists.categories}
@@ -73,7 +69,7 @@ export default function EventsForm({
       <Row>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan about"}
+            placeholder={"Masukan about"}
             label={"About"}
             name="about"
             value={form.about}
@@ -83,7 +79,7 @@ export default function EventsForm({
         </Col>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan tempat acara"}
+            placeholder={"Masukan tempat acara"}
             label={"Tempat acara"}
             name="venueName"
             value={form.venueName}
@@ -96,10 +92,10 @@ export default function EventsForm({
       <Form.Label>Key Point</Form.Label>
       <Row>
         {form.keyPoint.map((key, index) => (
-          <Col sm={6} key={index}>
-            <InputGroup className="mb-3">
+          <Col sm={6}>
+            <InputGroup className="mb-3" key={index}>
               <FormControl
-                placeholder="Masukkan keypoint"
+                placeholder="Masukan keypoint"
                 value={key}
                 type="text"
                 name="key"
@@ -124,18 +120,18 @@ export default function EventsForm({
       <Row>
         <Col>
           <SelectBox
-            label={"Talent"}
-            placeholder={"Masukkan pembica"}
+            label={"Speaker"}
+            placeholder={"Masukan pembica"}
             name="talent"
             value={form.talent}
             options={lists.talents}
-            isClearable
+            isClearable={true}
             handleChange={(e) => handleChange(e)}
           />
         </Col>
         <Col>
           <TextInputWithLabel
-            placeholder={"Masukkan Avatar"}
+            placeholder={"Masukan Avatar"}
             label={"Cover"}
             name="avatar"
             // value={form.avatar}
@@ -162,11 +158,11 @@ export default function EventsForm({
       <Form.Label>Tiket</Form.Label>
 
       {form.tickets.map((tic, index) => (
-        <Row key={index}>
+        <Row>
           <Col sm={6}>
             <TextInputWithLabel
-              placeholder={"Masukkan tipe tiket"}
-              label={"Type"}
+              placeholder={"Masukan tipe tiket"}
+              label={"type"}
               name="type"
               value={tic.type}
               type="text"
@@ -175,7 +171,7 @@ export default function EventsForm({
           </Col>
           <Col sm={6}>
             <TextInputWithLabel
-              placeholder={"Masukkan Harga"}
+              placeholder={"Masukan Harga"}
               label={"Harga"}
               name="price"
               value={tic.price}
@@ -185,7 +181,7 @@ export default function EventsForm({
           </Col>
           <Col sm={6}>
             <TextInputWithLabel
-              placeholder={"Jumlah stock"}
+              placeholder={"Masukan tipe tiket"}
               label={"Stock"}
               name="stock"
               value={tic.stock}
@@ -195,10 +191,10 @@ export default function EventsForm({
           </Col>
           <Col sm={index !== 0 ? 5 : 6}>
             <TextInputWithLabel
-              placeholder={"Masukkan status"}
-              label={"Status Event"}
-              name="statusTicketCategories"
-              value={tic.statusTicketCategories}
+              placeholder={"Masukan status"}
+              label={"Status"}
+              name="status"
+              value={tic.status}
               type="text"
               onChange={(e) => handleChangeTicket(e, index)}
             />

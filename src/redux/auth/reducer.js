@@ -4,7 +4,7 @@ import { USER_LOGIN, USER_LOGOUT } from "./constants";
 // initialState adalah data auth yang diget, datanya berupa string sehingga di parse jadi JSON.
 let initialState = localStorage.getItem("auth")
   ? JSON.parse(localStorage.getItem("auth"))
-  : { token: null, role: null };
+  : { token: null, role: null, refreshToken: null, email: null };
 
 // action pada argument di bawah adalah action dari file ./action.js
 export default function reducer(state = initialState, action) {
@@ -12,11 +12,13 @@ export default function reducer(state = initialState, action) {
     case USER_LOGIN:
       return {
         token: action.token,
+        email: action.email,
+        refreshToken: action.refreshToken,
         role: action.role,
       };
 
     case USER_LOGOUT:
-      return { token: null, role: null };
+      return { token: null, role: null, refreshToken: null, email: null };
 
     default:
       return state;
