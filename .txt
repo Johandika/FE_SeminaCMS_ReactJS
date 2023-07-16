@@ -1,0 +1,8 @@
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3JnYW5pemVyIDEiLCJ1c2VySWQiOiI2MmNmZTM1ZThhZDExZTdhNWUyNDBmMjgiLCJyb2xlIjoib3JnYW5pemVyIiwiZW1haWwiOiJvcmdhbml6ZXIxQGdtYWlsLmNvbSIsIm9yZ2FuaXplciI6IjYyY2ZlMzVlOGFkMTFlN2E1ZTI0MGYyNiIsImlhdCI6MTY4OTI2MzI4NiwiZXhwIjoxNjg5MjYzMzQ2fQ.YwhtRUNJHtOJ4PCyITliU2feG82PDCf3kqWh6SJ9-2I",
+
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiT3JnYW5pemVyIDEiLCJ1c2VySWQiOiI2MmNmZTM1ZThhZDExZTdhNWUyNDBmMjgiLCJyb2xlIjoib3JnYW5pemVyIiwiZW1haWwiOiJvcmdhbml6ZXIxQGdtYWlsLmNvbSIsIm9yZ2FuaXplciI6IjYyY2ZlMzVlOGFkMTFlN2E1ZTI0MGYyNiIsImlhdCI6MTY4OTI2MzI4NiwiZXhwIjoxNjg5MzQ5Njg2fQ.auTZPK28vmg8SBvLLa_aM8m3DW-sm9CAQTnoj8IdCBU",
+    
+    "role": "organizer",
+    "email": "organizer1@gmail.com"
+}

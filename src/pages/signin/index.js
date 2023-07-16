@@ -30,26 +30,29 @@ export default function Signin() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      const res = await postData(`/cms/auth/signin`, form);
-      // res.data adalah cara akses data ke database , sedangkan penambahan .data untuk kedua kalinya adalah default dari axios sama seperti halnnya untuk mengakses pesan error pada axios defaultnya harus menggunakan .response
 
+    // res.data adalah cara akses data ke database , sedangkan penambahan .data untuk kedua kalinya adalah default dari axios sama seperti halnnya untuk mengakses pesan error pada axios defaultnya harus menggunakan .response
+    const res = await postData(`/cms/auth/signin`, form);
+
+    if (res?.data?.data) {
+      // kalau nge dispatch harus sesuai urutan datanya dengan di action, biar datanya gak ketukar
       dispatch(
         userLogin(
           res.data.data.token,
           res.data.data.role,
-          res.data.data.refreshToken,
-          res.data.data.email
+          res.data.data.email,
+          res.data.data.refreshToken
         )
       );
       setIsLoading(false);
       navigate("/");
-    } catch (err) {
+    } else {
       setIsLoading(false);
+
       setAlert({
         status: true,
         type: "danger",
-        message: err.response.data.msg ?? "Internal Server Error",
+        message: res?.response?.data?.msg ?? "Internal Server Error",
       });
     }
   };
